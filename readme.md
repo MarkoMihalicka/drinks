@@ -1,0 +1,2 @@
+Toto je moja stránka o mojom bare dúfam ,že sa vám páči prajem vám dobrý zážitok.
+Do stránky sa dostanete tak, že musíte zdvyhnúť flašu alkoholu a potiahnuť ju k flaške s vodu.Tým rozlejete vodu a ste na mojom webe. :D
