@@ -1,0 +1,16 @@
+
+const headers = document.querySelectorAll(".accordion-header");
+
+headers.forEach(header => {
+  header.addEventListener("click", function() {
+    // Nájdeme obsah, ktorý nasleduje hneď po tlačidle
+    const content = this.nextElementSibling;
+
+    // Prepneme zobrazenie (ak je block, zmení na none a naopak)
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+});
