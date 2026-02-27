@@ -107,7 +107,7 @@
         <div class="drink-grid" id="drinkGrid">
             {% for drink in cocktails %}
             <div class="drink-card">
-                <img src="{{ drink.imageUrl }}" alt="{{ drink.name }}" onerror="this.src='https://via.placeholder.com/300x250?text=Drink+bez+fotky'">
+                <img src="{{ drink.image }}" alt="{{ drink.name }}" onerror="this.src='https://via.placeholder.com/300x250?text=Drink+bez+fotky'">
                 <h2>{{ drink.name }}</h2>
                 
                 <div class="ingredients-box">
