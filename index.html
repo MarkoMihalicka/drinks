@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<title>Marko-Alko-PONUKA</title>
+
+<style>
+body, html { 
+    margin:0; padding:0; width:100%; height:100%;
+    font-family:'Impact', sans-serif;
+    background:linear-gradient(135deg,#f5f5dc 0%,#d2b48c 50%,#8b4513 100%);
+    background-attachment:fixed;
+    overflow:hidden;
+}
+
+/* INTRO */
+#intro-overlay {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:#ffffff; z-index:9999;
+    display:flex; justify-content:center; align-items:center;
+}
+
+.bottle { position:absolute; cursor:grab; }
+
+#alko-bottle { width:800px; left:2%; top:5%; z-index:10001; }
+#water-bottle { width:350px; right:8%; top:25%; }
+
+#splash {
+    position:absolute; width:150px; opacity:0;
+    transition:transform .7s ease-in, opacity .3s; z-index:10000;
+}
+
+.instruction { 
+    position:absolute; top:5%; width:90%; text-align:center; 
+    font-size:42px; color:#800020;
+}
+
+/* MAIN CONTENT */
+#main-content { 
+    opacity:0; display:none; transition:opacity 1.5s ease;
+    padding:40px; text-align:center; min-height:100vh;
+}
+
+h1 { color:#800020; font-size:70px; margin-bottom:20px; }
+
+#search-container { margin:20px auto 40px; max-width:600px; }
+#searchInput {
+    width:100%; padding:15px 25px; border-radius:50px; border:none;
+    font-size:20px; box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+
+.drink-grid { 
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+    gap:30px; max-width:1300px; margin:0 auto;
+}
+
+.drink-card { 
+    background:rgba(255,255,255,.95);
+    border-radius:25px; padding:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,.3);
+    transition:.3s; cursor:pointer;
+    display:flex; flex-direction:column;
+}
+.drink-card:hover { transform:translateY(-10px); }
+
+.drink-card img { width:100%; border-radius:15px; height:250px; object-fit:cover; }
+
+.ingredients-box {
+    font-family:Arial; font-size:14px; color:#444;
+    background:#fdfdfd; padding:10px;
+    border-radius:10px; border-left:4px solid #800020;
+    margin-top:auto;
+}
+
+/* MODAL */
+.modal {
+    display:none;
+    position:fixed;
+    z-index:20000;
+    left:0; top:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,.6);
+    justify-content:center;
+    align-items:center;
+}
+
+.modal-content {
+    background:#fff;
+    padding:30px;
+    border-radius:20px;
+    width:350px;
+    text-align:center;
+    position:relative;
+}
+
+.close {
+    position:absolute;
+    right:15px;
+    top:10px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.rating span {
+    font-size:35px;
+    cursor:pointer;
+    color:#ccc;
+}
+
+.rating span.active {
+    color:gold;
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro-overlay">
+    <div class="instruction">Markov bar plný alkoholu</div>
+    <img id="alko-bottle" class="bottle" src="/static/alko.png">
+    <img id="water-bottle" class="bottle" src="/static/voda.png">
+    <img id="splash" src="/static/splash.png">
+</div>
+
+<div id="main-content">
+<h1>MARKO-ALKO-PONUKA</h1>
+
+<div id="search-container">
+<input type="text" id="searchInput" placeholder="Nájdi svoj drink...">
+</div>
+
+<div class="drink-grid">
+
+<div class="drink-card" data-name="Blue Mountain">
+<img src="https://boozeapi.com/api/img/cocktails/150.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Blue Mountain</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Añejo Rum
+, 
+
+Tia Maria
+, 
+
+Vodka
+, 
+
+Orange Juice
+, 
+
+Lemon Juice
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Addington">
+<img src="https://boozeapi.com/api/img/cocktails/18.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Addington</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Sweet Vermouth
+, 
+
+Dry Vermouth
+, 
+
+Soda Water
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Brain Fart">
+<img src="https://boozeapi.com/api/img/cocktails/125.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Brain Fart</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Everclear
+, 
+
+Vodka
+, 
+
+Mountain Dew
+, 
+
+Surge
+, 
+
+Lemon Juice
+, 
+
+Rum
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="The Philosopher">
+<img src="https://boozeapi.com/api/img/cocktails/563.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">The Philosopher</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Gin
+, 
+
+Melon Liqueur
+, 
+
+Orange Bitters
+, 
+
+Lemon Juice
+, 
+
+Prosecco
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Bombay Cassis">
+<img src="https://boozeapi.com/api/img/cocktails/152.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Bombay Cassis</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Gin
+, 
+
+Creme De Cassis
+, 
+
+Fresh Lime Juice
+, 
+
+Ginger Beer
+, 
+
+Lime
+, 
+
+Ginger
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Vodka Russian">
+<img src="https://boozeapi.com/api/img/cocktails/583.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Vodka Russian</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Vodka
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Mojito">
+<img src="https://boozeapi.com/api/img/cocktails/388.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Mojito</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Light Rum
+, 
+
+Lime
+, 
+
+Sugar
+, 
+
+Mint
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Jewel Of The Nile">
+<img src="https://boozeapi.com/api/img/cocktails/346.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Jewel Of The Nile</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Gin
+, 
+
+Green Chartreuse
+, 
+
+Yellow Chartreuse
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Blind Russian">
+<img src="https://boozeapi.com/api/img/cocktails/149.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Blind Russian</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Baileys Irish Cream
+, 
+
+Godiva Liqueur
+, 
+
+Kahlua
+, 
+
+Butterscotch Schnapps
+, 
+
+Milk
+
+
+</div>
+</div>
+
+<div class="drink-card" data-name="Alexander">
+<img src="https://boozeapi.com/api/img/cocktails/22.jpg" 
+     onerror="this.src='https://via.placeholder.com/300x250?text=Drink'">
+
+<h2 style="color: #8B0000;">Alexander</h2>
+
+<div class="ingredients-box">
+<strong>Zloženie:</strong><br>
+
+Gin
+, 
+
+Creme De Cacao
+, 
+
+Light Cream
+
+
+</div>
+</div>
+
+</div>
+</div>
+
+<!-- MODAL -->
+<div id="drinkModal" class="modal">
+<div class="modal-content">
+<span class="close">&times;</span>
+<h2 id="modalName"></h2>
+
+<div class="rating">
+<span data-value="1">★</span>
+<span data-value="2">★</span>
+<span data-value="3">★</span>
+<span data-value="4">★</span>
+<span data-value="5">★</span>
+</div>
+
+<p>Hodnotenie: <strong><span id="ratingCount">0</span>/5</strong></p>
+</div>
+</div>
+
+<script>
+/* INTRO ANIMÁCIA */
+const alko = document.getElementById('alko-bottle'),
+      water = document.getElementById('water-bottle'),
+      splash = document.getElementById('splash'),
+      overlay = document.getElementById('intro-overlay'),
+      content = document.getElementById('main-content');
+
+let active=false,currentX=0,currentY=0,initialX,initialY;
+
+function dragStart(e){
+    const clientX=e.type.includes("touch")?e.touches[0].clientX:e.clientX;
+    const clientY=e.type.includes("touch")?e.touches[0].clientY:e.clientY;
+    if(e.target===alko){
+        active=true;
+        initialX=clientX-currentX;
+        initialY=clientY-currentY;
+    }
+}
+
+function drag(e){
+if(active){
+e.preventDefault();
+const clientX=e.type.includes("touch")?e.touches[0].clientX:e.clientX;
+const clientY=e.type.includes("touch")?e.touches[0].clientY:e.clientY;
+currentX=clientX-initialX;
+currentY=clientY-initialY;
+alko.style.transform=`translate3d(${currentX}px,${currentY}px,0)`;
+
+let r1=alko.getBoundingClientRect(),r2=water.getBoundingClientRect();
+if(!(r1.right<r2.left||r1.left>r2.right||r1.bottom<r2.top||r1.top>r2.bottom)){
+active=false;
+splash.style.left=(r2.left+r2.width/2-75)+"px";
+splash.style.top=(r2.top+r2.height/2-75)+"px";
+splash.style.opacity="1";
+splash.style.transform="scale(600)";
+water.style.opacity="0";
+alko.style.opacity="0";
+
+setTimeout(()=>{
+overlay.style.opacity="0";
+setTimeout(()=>{
+overlay.style.display='none';
+content.style.display='block';
+document.body.style.overflow="auto";
+setTimeout(()=>{content.style.opacity='1';},50);
+},800);
+},500);
+}
+}
+}
+
+window.addEventListener("mousedown",dragStart);
+window.addEventListener("mousemove",drag);
+window.addEventListener("mouseup",()=>active=false);
+window.addEventListener("touchstart",dragStart,{passive:false});
+window.addEventListener("touchmove",drag,{passive:false});
+window.addEventListener("touchend",()=>active=false);
+
+/* SEARCH */
+document.getElementById('searchInput').addEventListener('keyup',function(){
+let filter=this.value.toLowerCase();
+document.querySelectorAll('.drink-card').forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(filter)?"":"none";
+});
+});
+
+/* MODAL + RATING */
+const modal=document.getElementById("drinkModal");
+const modalName=document.getElementById("modalName");
+const ratingCount=document.getElementById("ratingCount");
+const closeBtn=document.querySelector(".close");
+const stars=document.querySelectorAll(".rating span");
+
+document.querySelectorAll(".drink-card").forEach(card=>{
+card.addEventListener("click",()=>{
+const name=card.dataset.name;
+modalName.textContent=name;
+modal.style.display="flex";
+loadRating(name);
+});
+});
+
+closeBtn.onclick=()=>modal.style.display="none";
+window.onclick=e=>{if(e.target===modal)modal.style.display="none";};
+
+stars.forEach(star=>{
+star.addEventListener("click",()=>{
+const value=star.dataset.value;
+const drink=modalName.textContent;
+localStorage.setItem("rating_"+drink,value);
+highlightStars(value);
+});
+});
+
+function highlightStars(value){
+stars.forEach(star=>{
+star.classList.toggle("active",star.dataset.value<=value);
+});
+ratingCount.textContent=value;
+}
+
+function loadRating(drink){
+const saved=localStorage.getItem("rating_"+drink)||0;
+highlightStars(saved);
+}
+</script>
+
+</body>
+</html>
